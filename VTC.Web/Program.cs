@@ -4,6 +4,13 @@ using VTC.Application.Services.Interfaces;
 using VTC.Application.Services;
 using VTC.Data.Repositories.Interfaces;
 using VTC.Data.Repositories;
+using Microsoft.AspNetCore.Identity;
+using VTC.Data.Entities;
+using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
+using VTC.Application.ViewModels;
 
 namespace VTC.Web
 {
@@ -30,6 +37,13 @@ namespace VTC.Web
             builder.Services.AddScoped<IFormRepository, FormRepository>();
             builder.Services.AddScoped<ILessonRepository, LessonRepository>();
             builder.Services.AddScoped<ILessonService, LessonService>();
+
+            builder.Services.AddIdentity<User, IdentityRole<int>>()
+                .AddEntityFrameworkStores<VTCDataContext>();
+           
+                           
+            //    builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            //.AddEntityFrameworkStores<IdentityDbContext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -46,6 +60,9 @@ namespace VTC.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
+            
+         
 
             app.MapControllerRoute(
                 name: "default",

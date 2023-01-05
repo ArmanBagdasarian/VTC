@@ -19,6 +19,10 @@ namespace VTC.Application.ViewModels
         [Display(Name ="Confirm password")]
         [Compare("Password", 
             ErrorMessage = "Password and confirmation password do not match")]
-        public string ConfirmPassword { get; set; } 
+        public string ConfirmPassword { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FatherName { get; set; }
+        public DateTime DOB { get; set; }
     }
 }
